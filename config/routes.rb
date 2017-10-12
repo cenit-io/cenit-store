@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   root to: 'plans#index'
 
   get 'plans/index'
+  get 'collections/index'
 
   devise_for :users, :controllers => { :registrations => 'registrations' }
 

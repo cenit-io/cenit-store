@@ -14,8 +14,6 @@ class RegistrationsController < Devise::RegistrationsController
 
   def create
     build_resource(sign_up_params)
-    plan = Plan.find_by!(id: params[:user][:plan_id].to_i)
-    resource.role = User.roles[plan.stripe_id] unless resource.admin?
     resource.save
     yield resource if block_given?
     if resource.persisted?
