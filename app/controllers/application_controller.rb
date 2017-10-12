@@ -4,18 +4,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   def after_sign_in_path_for(resource)
-    case current_user.role
-      when 'admin'
-        users_path
-      when 'silver'
-        content_silver_path
-      when 'gold'
-        content_gold_path
-      when 'platinum'
-        content_platinum_path
-      else
-        root_path
-    end
+    current_user.admin? ? rails_admin_path : root_path
   end
 
 end
