@@ -1,0 +1,13 @@
+<% if current_user %>
+    <% if current_user.plan != plan %>
+        <%= form_for(current_user, :url => change_plan_path, :html => { :method => :put, :role => 'form' }) do |f| %>
+            <%= f.hidden_field :plan_id, value: plan.id %>
+            <%= f.submit t(:change_plan), :class => 'btn btn-primary' %>
+        <% end %>
+    <% else %>
+        <%= button_to t(:cancel_subscription), registration_path(:user), :method => :delete,
+                      :data => { :confirm => "Are you sure?" }, :class => 'btn btn-danger' %>
+    <% end %>
+<% else %>
+    <%= link_to t(:subscribe), new_user_registration_path(plan: plan.stripe_id), :class => 'btn btn-primary' %>
+<% end %>

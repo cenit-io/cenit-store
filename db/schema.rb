@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150408023212) do
+ActiveRecord::Schema.define(version: 20171012025234) do
 
   create_table "payola_affiliates", force: :cascade do |t|
     t.string   "code"
@@ -116,8 +116,19 @@ ActiveRecord::Schema.define(version: 20150408023212) do
     t.string   "stripe_id"
     t.string   "interval"
     t.integer  "amount"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                                      null: false
+    t.datetime "updated_at",                                      null: false
+    t.string   "color",                 default: "#111575",       null: false
+    t.integer  "tenants",               default: 1,               null: false
+    t.integer  "flow_settings",         default: 2,               null: false
+    t.integer  "standard_transactions", default: 1000,            null: false
+    t.integer  "commerce_transactions", default: 100,             null: false
+    t.integer  "records_of_objects",    default: 2000,            null: false
+    t.integer  "connections",           default: 5,               null: false
+    t.integer  "polling_cycle",         default: 20,              null: false
+    t.integer  "flow_history",          default: 7,               null: false
+    t.string   "support",               default: "slack-channel", null: false
+    t.string   "custom_service",        default: "self-service",  null: false
   end
 
   create_table "users", force: :cascade do |t|

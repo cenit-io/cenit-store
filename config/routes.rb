@@ -1,16 +1,17 @@
 Rails.application.routes.draw do
 
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
-
-  get "content/silver"
-  get "content/gold"
-  get "content/platinum"
   mount Payola::Engine => '/payola', as: :payola
-  root to: 'visitors#index'
-  get 'products/:id', to: 'products#show', :as => :products
+
+  root to: 'plans#index'
+
+  get 'plans/index'
+
   devise_for :users, :controllers => { :registrations => 'registrations' }
+
   devise_scope :user do
     put 'change_plan', :to => 'registrations#change_plan'
   end
+
   resources :users
 end

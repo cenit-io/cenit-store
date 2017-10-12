@@ -20,4 +20,9 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  subscription_plans: 'Subscription plans:'
+  change_plan: 'Change to this plan'
+  plan_was_changed: 'Yours plan was changed'
+  plan_could_not_be_changed: 'Your plan could not be changed'
+  cancel_subscription: 'Cancel my subscription'
+  subscription_was_canceled: 'Yours subscription was canceled'

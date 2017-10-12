@@ -1,0 +1,16 @@
+<div id="plans" class="span7">
+  <h1><%= image_tag asset_path('cenit-logo.png'), alt: 'Cenit.IO' %><%= t(:subscription_plans) %></h1>
+  <hr/>
+</div>
+<div class="row col-sm-12 plans">
+  <% @plans.each do |plan| %>
+      <div class="col-sm-2 well <%= current_user && current_user.plan == plan ? 'current' : '' %>">
+        <div class="plan" style="background-color: <%= "##{plan.color};" %>"><h2><%= plan.name %></h2></div>
+        <ul class="list-unstyled">
+          <li>...</li>
+        </ul>
+        <h3><%= "#{amount(plan)}/#{plan.interval}" %></h3>
+        <%= render partial: 'subscrition_form', locals: { plan: plan } %>
+      </div>
+  <% end %>
+</div>

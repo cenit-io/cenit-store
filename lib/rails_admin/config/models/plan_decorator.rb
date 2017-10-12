@@ -24,10 +24,30 @@ Plan.class_eval do
     end
 
     edit do
-      field :name
-      field :amount
-      field :interval
-      field :stripe_id
+      group :stripe_data do
+        visible { bindings[:object].new_record? }
+        field :name
+        field :amount
+        field :interval
+        field :stripe_id
+        field :stripe_id
+      end
+      group :available_resources do
+        visible { bindings[:object].new_record? }
+        field :tenants
+        field :flow_settings
+        field :standard_transactions
+        field :commerce_transactions
+        field :records_of_objects
+        field :connections
+        field :polling_cycle
+        field :flow_history
+        field :support
+        field :custom_service
+      end
+      group :appearance do
+        field :color, :color
+      end
     end
   end
 

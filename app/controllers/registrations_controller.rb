@@ -30,33 +30,31 @@ class RegistrationsController < Devise::RegistrationsController
       end
     else
       clean_up_passwords resource
-      render json:
-        {error: resource.errors.full_messages.to_sentence},
-        status: 400
+      render json: { error: resource.errors.full_messages.to_sentence }, status: 400
     end
   end
 
   def change_plan
     plan = Plan.find_by!(id: params[:user][:plan_id].to_i)
+    opts = {}
+
     unless plan == current_user.plan
-      role = User.roles[plan.stripe_id]
-      if current_user.update_attributes!(plan: plan, role: role)
+      if current_user.update_attributes!(plan: plan)
         subscription = Payola::Subscription.find_by!(owner_id: current_user.id)
         Payola::ChangeSubscriptionPlan.call(subscription, plan)
-        redirect_to edit_user_registration_path, :notice => "Plan changed."
+        opts = { :notice => t(:plan_was_changed) }
       else
-        flash[:alert] = 'Unable to change plan.'
-        build_resource
-        render :edit
+        opts = { :alert => t(:plan_could_not_be_changed) }
       end
     end
+
+    redirect_to plans_index_path, opts
   end
 
   private
 
   def sign_up_params
-    params.require(:user).permit(:email,
-    :password, :password_confirmation, :plan_id)
+    params.require(:user).permit(:email, :password, :password_confirmation, :plan_id)
   end
 
   def subscribe
@@ -68,8 +66,8 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def cancel_subscription
-    subscription = Payola::Subscription.find_by!(owner_id: current_user.id, state: 'active')
-    Payola::CancelSubscription.call(subscription)
+    subscription = Payola::Subscription.find_by(owner_id: current_user.id, state: 'active')
+    Payola::CancelSubscription.call(subscription) if subscription
   end
 
 end
