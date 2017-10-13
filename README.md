@@ -3,12 +3,12 @@ CenitIO store over Stripe Membership Saas
 
 ## Installation:
 
-    ```bash
-    git clone https://github.com/cenit-io/cenit-store
-    cd cenit-store
-    bundle install
-    bundle exec rake db:migrate
-    ```
+```bash
+git clone https://github.com/cenit-io/cenit-store
+cd cenit-store
+bundle install
+bundle exec rake db:migrate
+```
     
 ## Configuration:
 
@@ -29,7 +29,7 @@ STRIPE_PUBLISHABLE_KEY: "********************************"
 
 ## Load default data and plans:
 
-    ```bash
-    bundle exec rake db:seed
-    ```
+```bash
+bundle exec rake db:seed
+```
 
